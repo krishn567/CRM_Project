@@ -6,7 +6,7 @@ import Button from '../Components/Button';
 const SuccessEmail = () => {
 const navigate = useNavigate();
   const Success=()=>{
-   navigate('/login')
+   navigate('/')
     
   }
   return (

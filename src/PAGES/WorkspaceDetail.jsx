@@ -2,24 +2,31 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import InputField from '../Components/InputField'
 import Button from '../Components/Button'
+import WorkspaceUsers from '../Components/WorkspaceUsers'
 
 const WorkspaceDetail = () => {
   const [workspacedata, setWorkspacedata] = useState({
    name: "",
     website: "",
     logo_url: "",
-    created_at: "",
+    created_at: null,
   });
    
+   
+  const workspaceId = localStorage.getItem("workspace_id");
+  
+//   const workspaceId = localStorage.getItem("finalworkspace");
+
 
    useEffect(() => {
+      console.log("Workspace-----:", workspaceId)
           const fetchAllWorkspaces = async () => {
               // const userId = localStorage.getItem("userId");
               // console.log("UserID is:", userId);
               try {
-                const workspaceId = localStorage.getItem("workspaceId");
                 console.log("UserID is:", workspaceId);
                   const API_URL = import.meta.env.VITE_API_URL;
+                  // /api/workspace/{workspace}
                   const response = await fetch(`${API_URL}/workspace/${workspaceId}`, {
                       headers: {
                           Accept: "application/json",
@@ -29,20 +36,65 @@ const WorkspaceDetail = () => {
                   });
                   const result = await response.json();
                   console.log("API Response:", result);
-                  setWorkspacedata(result.data);
+                  
+                  // setWorkspacedata(result.data);
+                  setWorkspacedata((pre)=>({...pre,...result.data}))
                   console.log(workspacedata)
+                   
               } catch (error) {
                   console.error("Error fetching workspaces:", error);
               }
           };
   
           fetchAllWorkspaces();
-      }, []);
-      const handleChange=()=>{
+      }, [workspaceId]);
+      const handleChange=(e)=>{
          const { name, value } = e.target;
          setWorkspacedata({...workspacedata,[name]:value})
 
       }
+       const handleSubmit = async (e) => {
+           e.preventDefault();
+         //   if (!formValues.email || !formValues.password) {
+         //     return alert("Both email and password are required!");
+         //   }
+           try {
+             const API_URL = import.meta.env.VITE_API_URL;
+             const response = await fetch(`${API_URL}/workspace/${workspaceId}`, {
+               method: "POST",
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+               },
+               credentials: 'include',
+                
+               body: JSON.stringify({
+                  name : `${workspacedata.name}`,
+ 
+                         }),
+             });
+       
+             if (response.ok) {                                
+                   const result=await response.json()
+                   console.log("result:",  result)  
+                             
+               //    const demo = fetchworckspace(result.data.user_id)
+               //   //  console.log("demo:", demo)
+               //   const userId = result.data.user_id
+               //   console.log(userId);
+                 
+             } else {
+               const errorData = await response.json();
+               alert(errorData.message || "Something went wrong.");
+             }
+             
+           } catch (error) {
+             console.error("Error during login:", error);
+             alert("Failed to login. Please try again.");
+           }
+         };
+          
+    
   return (
      <>
       <Header/>
@@ -165,7 +217,12 @@ const WorkspaceDetail = () => {
                 <form className="space-y-4"
                 //  onSubmit={handleSubmit}
                  >                  
-                  <h2 className='mt-8'>Workspace Detail</h2>
+                   <div className="flex justify-center gap-1 items-center my-4">
+    <div className="flex w-full justify-center items-center gap-[1rem]">
+      <i className="fa-solid fa-file-invoice text-xl"></i>
+      <h2 className="text-xl">Workspace Details</h2>
+    </div>
+  </div>
                   <div className='flex gap-7'>
 
                   <div className='flex flex-col gap-1'>
@@ -202,6 +259,7 @@ const WorkspaceDetail = () => {
                     </div>
                     </div>
 
+
                    <div className='flex gap-7'>
 
                  <div className='flex flex-col'>
@@ -218,17 +276,17 @@ const WorkspaceDetail = () => {
                     <div className='flex flex-col'>            
                   <label
                     htmlFor="join_date"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className="block mb-2 text-sm font-medium text-gray-900"
                     >
                     Join Date
                   </label>
                   <InputField
                       type="date"
                       id="join_date"
-                      name="join_date"
+                      name="created_at"
                     value={workspacedata.created_at} 
                     onChange={handleChange}
-                    placeholder="www.company.com"
+                    placeholder=""
                     className="w-[18vw] p-2.5 border rounded-lg"
                     />
                     </div>
@@ -236,6 +294,7 @@ const WorkspaceDetail = () => {
                   <div className="flex justify-end gap-10">
                      <button
                       type="button"
+                      onClick={handleSubmit}
                       class=" px-10 me-2 mb-2 text-sm font-medium  focus:outline-non    focus:z-10 focus:ring-4 focus:ring-gray-100  bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-500"
                     >  Post
                     </button> 
@@ -250,6 +309,8 @@ const WorkspaceDetail = () => {
           </div>
                 </form>
               </div>
+
+              <WorkspaceUsers/>
  
      </>
   )

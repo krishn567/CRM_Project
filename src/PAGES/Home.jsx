@@ -44,7 +44,7 @@ const handleChange = (e) => {
   
 };
 const handlenavigate=()=>{
-  navigate('/workspacedetail')
+  navigate(`/workspacedetail/${storedWorkspaceId}`)
 
 }
 // const handleChange = (e) => {

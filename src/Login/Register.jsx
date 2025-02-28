@@ -99,7 +99,7 @@ const Register = () => {
 
         if (response.ok) {
           alert("Registration Successfull");
-          navigate("/login");
+          navigate("/");
         } else {
           const errorData = await response.json();
           console.log("Error:", errorData);
@@ -257,7 +257,7 @@ const Register = () => {
                   Already have an account?
                 </span>
                 <Link
-                  to="/login"
+                  to="/"
                   className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
                 >
                   Sign In

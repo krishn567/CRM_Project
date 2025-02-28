@@ -81,7 +81,7 @@ const CreateWokspace = () => {
       });
   
       if (response.ok) {    
-        navigate("/login");  
+        navigate("/");  
       } else {
         alert("Logout failed. Try again!");  
       }

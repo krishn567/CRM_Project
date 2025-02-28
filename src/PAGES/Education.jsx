@@ -237,12 +237,12 @@ const Education = () => {
   // display data 
   let educationData = (
     <>
-
       {data.length > 0 ? (
         data.map((element) => (
           <tbody>
             {/* rows */}
-            <tr className="bg-white border-b text-black  border-gray-200 hover:bg-gray-50 ">
+            <tr className="bg-white border-b text-black  border-gray-200 hover:bg-gray-50  
+            flex justify-center items-center gap-6">
 
               {/* school field */}
               <td class="px-6 py-4  ">
@@ -495,8 +495,8 @@ const Education = () => {
   </div>
 
   {/* Table start */}
-  <div className="flex justify-end mx-3 mb-5">   
-    <div className="button w-fit">
+  <div className="flex justify-end mx-3 my-5 w-[35vw]">   
+    <div className="button ">
       <Button name="Add details" className="w-40" handleClick={openModal} />
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -613,8 +613,8 @@ const Education = () => {
     <div className="relative overflow-x-auto shadow-xl sm:rounded-lg  max-w-4xl">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          <tr className='flex'>
-            <th scope="col" className="px-2 py-3">
+          <tr className='flex '>
+            <th scope="col" className="px-6 py-3">
               School
             </th>
             <th scope="col" className="px-6 py-3">

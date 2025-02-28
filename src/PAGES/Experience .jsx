@@ -233,7 +233,8 @@ const Experience = () => {
       {data.length > 0 ? (
         data.map((element) => (
           <tbody>
-            <tr className="bg-white border-b text-black  border-gray-200 hover:bg-gray-50  flex  justify-center items-center gap-6 ">
+       <tr className="bg-white border-b text-black  border-gray-200 hover:bg-gray-50 
+        flex  justify-center items-center gap-6 ">
               <td className='px-8 py-4'>
                 {element.designation}
               </td>
@@ -429,7 +430,7 @@ const Experience = () => {
     <>
     <div ref={sectionRef} className="mx-auto my-10 flex flex-col justify-center">
   {/* Experience line */}
-  <div className="flex justify-center gap-1 items-center mb-4">
+  <div className="flex justify-center gap-1 items-center my-2">
     <div className="flex w-full justify-center items-center gap-[1rem]">
       <i className="fa-solid fa-file-invoice text-xl"></i>
       <h2 className="text-xl">Experience Details</h2>
@@ -437,8 +438,8 @@ const Experience = () => {
   </div>
 
   {/* Table start */}
-  <div className="flex justify-end mx-3 mb-5">
-    <div className="button w-fit">
+  <div className="flex justify-end mx-3 my-5  w-[35vw]">
+    <div className="button">
       <Button name="Add details" handleClick={openModal} />
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -543,7 +544,7 @@ const Experience = () => {
           <th scope="col" className="px-6 py-3">
             Designation
           </th>
-          <th scope="col" className=" py-3">
+          <th scope="col" className=" px-6 py-3">
             Employment
           </th>
           <th scope="col" className="px-6 py-3">

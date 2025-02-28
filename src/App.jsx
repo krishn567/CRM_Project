@@ -57,18 +57,35 @@ import Experience from "./PAGES/Experience ";
 import Demo from "./PAGES/demo";
 import WorkspaceDetail from "./PAGES/WorkspaceDetail";
 import { WorkspaceProvider } from "./Components/WorkspaceContext";
+import Preloader from "./Components/Preloader";
+import { useEffect, useState } from "react";
+ 
+ 
+// import WorkspaceSettings from "./PAGES/Workspace_Settings/WorkspaceSettings";
  
  
  
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); 
+  }, []);
+
+
   return (
     <>
+    {loading ? (
+        <Preloader />
+      ) : (
         <WorkspaceProvider> 
       <BrowserRouter>
         <Routes>
           <Route path="/sign-up" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/home/:workspace_id" element={<Home />} />
           <Route path="/email-verification" element={<EmailVarify />} />
           <Route path="/successemail" element={<SuccessEmail />} />
@@ -79,8 +96,10 @@ function App() {
           <Route path="/dashboard"element={<Dashbord/>}></Route>
           <Route path="/education"element={<Education/>}></Route>
           <Route path="/experience"element={<Experience/>}></Route>
-          <Route path="/workspacedetail"element={<WorkspaceDetail/>}></Route>
+          <Route path="/workspacedetail/:workspaceid"element={<WorkspaceDetail/>}></Route>
+          {/* <Route path="/:workspaceId/workspace-details" element={<WorkspaceSettings />} /> */}
           <Route path="/demo"element={<Demo/>}></Route>
+           
           
            
            
@@ -95,6 +114,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       </WorkspaceProvider> 
+      )}
     </>
   );
 }
